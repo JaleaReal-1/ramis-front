@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:sistema_ocs/core/theme/app_theme.dart';
-import 'package:lucide_icons/lucide_icons.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:sistema_ocs/core/database/db_helper.dart';
 import 'package:sistema_ocs/features/rq_urgente/models/rq_local_model.dart';
 import 'package:sistema_ocs/features/rq_urgente/services/urgent_rq_service.dart';

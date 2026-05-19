@@ -296,14 +296,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.1.1"
-  lucide_icons:
+  lucide_icons_flutter:
     dependency: "direct main"
     description:
-      name: lucide_icons
-      sha256: "81f8eaf2e40ee30a967d1370285801e7d8697890dec5b6bd4d0d5a40c92024e7"
+      name: lucide_icons_flutter
+      sha256: f9fd5d49b93bf14b89e0ff4818658a74ab16899bdaf7aa745358ee1a34f54eed
       url: "https://pub.dev"
     source: hosted
-    version: "0.43.0"
+    version: "3.1.14+1"
   matcher:
     dependency: transitive
     description:

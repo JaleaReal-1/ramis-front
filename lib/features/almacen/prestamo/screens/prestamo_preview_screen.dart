@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:lucide_icons/lucide_icons.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:sistema_ocs/features/login/auth_notifier.dart';
 import 'package:sistema_ocs/features/login/login_provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';

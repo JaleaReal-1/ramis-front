@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:lucide_icons/lucide_icons.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:sistema_ocs/core/theme/app_colors.dart';
 import 'package:sistema_ocs/features/almacen/alamacenero/escanear_qr_screen.dart';
 import 'package:sistema_ocs/features/almacen/escanear_qr_screen.dart';

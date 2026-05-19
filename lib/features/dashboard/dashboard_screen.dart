@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sistema_ocs/core/theme/app_theme.dart';
-import 'package:lucide_icons/lucide_icons.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:sistema_ocs/features/almacen/prestamo/providers/carrito_provider.dart';
 import 'package:sistema_ocs/features/almacen/prestamo/screens/carrito_screen.dart';
 import 'package:sistema_ocs/features/compras/items_to_buy_screen.dart';

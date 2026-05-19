@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:lucide_icons/lucide_icons.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:sistema_ocs/features/almacen/prestamo/providers/carrito_provider.dart';
 import 'package:sistema_ocs/features/almacen/prestamo/providers/prestamo_manual_provider.dart';
