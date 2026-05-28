@@ -1,0 +1,45 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clonar Repositorio') {
+            steps {
+                echo 'Descargando el código desde GitHub...'
+                git branch: 'master', url: 'https://github.com/JaleaReal-1/ramis-front.git'
+            }
+        }
+
+        stage('Instalar Dependencias') {
+            steps {
+                echo 'Descargando paquetes de Flutter...'
+                // Usamos la ruta absoluta directa al motor de Flutter
+                sh '/opt/flutter/bin/flutter pub get'
+            }
+        }
+
+        stage('Pruebas Unitarias y de Componentes') {
+            steps {
+                echo 'Ejecutando flutter test...'
+                sh '/opt/flutter/bin/flutter test'
+            }
+        }
+
+        stage('Compilar APK Móvil') {
+            steps {
+                echo 'Construyendo el archivo ejecutable de Android...'
+                // Ruta absoluta y comando de compilación
+                sh '/opt/flutter/bin/flutter build apk --release'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo '¡El pipeline terminó con éxito! Guardando el APK...'
+            archiveArtifacts artifacts: 'build/app/outputs/flutter-apk/app-release.apk', fingerprint: true
+        }
+        failure {
+            echo 'Algo falló en el proceso. Revisa los logs.'
+        }
+    }
+}
