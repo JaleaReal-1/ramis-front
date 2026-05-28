@@ -23,6 +23,20 @@ pipeline {
                 sh '/opt/flutter/bin/flutter test'
             }
         }
+        
+        stage('Análisis de Calidad (SonarQube)') {
+            steps {
+                echo 'Enviando código fuente a SonarQube...'
+                script {
+                    // Llama a la herramienta sonar-scanner que ya configuraste para el backend
+                    def scannerHome = tool 'sonar-scanner'
+                    // Llama al servidor configurado en Jenkins (Manage Jenkins -> System)
+                    withSonarQubeEnv('SonarServer') {
+                        sh "${scannerHome}/bin/sonar-scanner"
+                    }
+                }
+            }
+        }
 
         stage('Compilar APK Móvil') {
             steps {
