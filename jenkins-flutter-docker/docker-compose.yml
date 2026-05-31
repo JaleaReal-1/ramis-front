@@ -1,6 +1,7 @@
 version: '3.8'
 
 services:
+  # 1. El orquestador de compilación móvil
   jenkins-front:
     build: .
     container_name: jenkins-front
@@ -12,6 +13,17 @@ services:
       - jenkins_front_data:/var/jenkins_home
     environment:
       - JAVA_OPTS=-Djenkins.install.runSetupWizard=true
+
+  # 2. El servidor de calidad de código
+  sonarqube-front:
+    image: sonarqube:lts-community
+    container_name: sonarqube-front
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+    environment:
+      # Esta línea es CLAVE para que no consuma toda tu RAM
+      - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
 
 volumes:
   jenkins_front_data:
