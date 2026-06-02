@@ -20,7 +20,7 @@ services:
     container_name: sonarqube-front
     restart: unless-stopped
     ports:
-      - "9000:9000"
+      - "9001:9000"
     environment:
       # Esta línea es CLAVE para que no consuma toda tu RAM
       - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
