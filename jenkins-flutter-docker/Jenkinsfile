@@ -1,59 +1,81 @@
 pipeline {
-    agent any
+agent any
 
-    stages {
-        stage('Clonar Repositorio') {
-            steps {
-                echo 'Descargando el código desde GitHub...'
-                git branch: 'master', url: 'https://github.com/JaleaReal-1/ramis-front.git'
-            }
-        }
+```
+tools {
+    sonarQubeScanner 'sonar-scanner'
+}
 
-        stage('Instalar Dependencias') {
-            steps {
-                echo 'Descargando paquetes de Flutter...'
-                // Usamos la ruta absoluta directa al motor de Flutter
-                sh '/opt/flutter/bin/flutter pub get'
-            }
-        }
+stages {
 
-        stage('Pruebas Unitarias y de Componentes') {
-            steps {
-                echo 'Ejecutando flutter test...'
-                sh '/opt/flutter/bin/flutter test'
-            }
+    stage('Clonar Repositorio') {
+        steps {
+            echo 'Descargando el código desde GitHub...'
+            git branch: 'master',
+                url: 'https://github.com/JaleaReal-1/ramis-front.git'
         }
-        
-        stage('Análisis de Calidad (SonarQube)') {
-            steps {
-                echo 'Enviando código fuente a SonarQube...'
-                script {
-                    // Llama a la herramienta sonar-scanner que ya configuraste para el backend
-                    def scannerHome = tool 'sonar-scanner'
-                    // Llama al servidor configurado en Jenkins (Manage Jenkins -> System)
-                    withSonarQubeEnv('SonarServer') {
-                        sh "${scannerHome}/bin/sonar-scanner"
-                    }
+    }
+
+    stage('Instalar Dependencias') {
+        steps {
+            echo 'Descargando paquetes Flutter...'
+            sh '/opt/flutter/bin/flutter pub get'
+        }
+    }
+
+    stage('Pruebas Unitarias') {
+        steps {
+            echo 'Ejecutando pruebas...'
+            sh '/opt/flutter/bin/flutter test'
+        }
+    }
+
+    stage('Analisis SonarQube') {
+        steps {
+            script {
+                def scannerHome = tool 'sonar-scanner'
+
+                withSonarQubeEnv('SonarServer') {
+                    sh """
+                        ${scannerHome}/bin/sonar-scanner \
+                        -Dsonar.projectKey=ramis-front \
+                        -Dsonar.projectName=ramis-front \
+                        -Dsonar.sources=lib \
+                        -Dsonar.tests=test
+                    """
                 }
             }
         }
+    }
 
-        stage('Compilar APK Móvil') {
-            steps {
-                echo 'Construyendo el archivo ejecutable de Android...'
-                // Ruta absoluta y comando de compilación
-                sh '/opt/flutter/bin/flutter build apk --release'
-            }
+    stage('Compilar APK') {
+        steps {
+            echo 'Generando APK Release...'
+            sh '/opt/flutter/bin/flutter build apk --release'
         }
     }
 
-    post {
-        success {
-            echo '¡El pipeline terminó con éxito! Guardando el APK...'
-            archiveArtifacts artifacts: 'build/app/outputs/flutter-apk/app-release.apk', fingerprint: true
-        }
-        failure {
-            echo 'Algo falló en el proceso. Revisa los logs.'
-        }
+}
+
+post {
+
+    success {
+        echo 'Pipeline completado correctamente.'
+
+        archiveArtifacts(
+            artifacts: 'build/app/outputs/flutter-apk/app-release.apk',
+            fingerprint: true
+        )
     }
+
+    failure {
+        echo 'El pipeline fallo.'
+    }
+
+    always {
+        cleanWs()
+    }
+}
+```
+
 }
